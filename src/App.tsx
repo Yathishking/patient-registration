@@ -6,17 +6,21 @@ import { PGliteProvider } from "@electric-sql/pglite-react"
 import { useEffect } from 'react';
 import Login from './components/login/login';
 import Dashboard from './components/dashboard/dashboard';
-<<<<<<< Updated upstream
 import { PGliteWorker } from '@electric-sql/pglite/worker';
-=======
 import Navbar from './components/nav/navbar';
->>>>>>> Stashed changes
+import { live } from '@electric-sql/pglite/live';
 
-const db =  new PGliteWorker(
-  new Worker(new URL('./my-pglite-worker.js', import.meta.url), {
+const db =  await PGliteWorker.create(
+  new Worker(new URL('./pglite-worker.js', import.meta.url), {
     type: 'module',
   }),
+  {
+    extensions: {
+      live,
+    },
+  },
 )
+
 
 function App() {
   useEffect(() => {

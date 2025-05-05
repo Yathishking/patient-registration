@@ -2,6 +2,46 @@ import { AppBar, Box, Button, Container, Toolbar, Typography } from "@mui/materi
 import { pages } from "../../navpages/pages";
 
 export default function Navbar() {
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const role = localStorage.getItem('role');
+    const nav_links = () => {
+        if(isLoggedIn) {
+            if (role === 'admin') {
+                return (
+                    <>
+                        <Button href='/dashboard' sx={{ my: 2, color: 'white', display: 'block' }}>Dashboard</Button>
+                        <Button onClick={() => {
+                            localStorage.removeItem('user');
+                            localStorage.removeItem('role');
+                            localStorage.removeItem('isLoggedIn');
+                            window.location.reload();
+                        }} sx={{ my: 2, color: 'white', display: 'block' }}>Log Out</Button>
+                    </>
+                )
+            }
+            return (
+                <>
+                    <Button onClick={() => {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('role');
+                        localStorage.removeItem('isLoggedIn');
+                        window.location.reload();
+                    }} sx={{ my: 2, color: 'white', display: 'block' }}>Log Out</Button>
+                </>
+            )
+        }
+        return pages.map((page) => (
+            <Button
+                key={page.title}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+                href={page.link}
+            >
+                {page.title}
+            </Button>
+        ))
+    }
+
     return (
         <AppBar position="static">
             <Container maxWidth="lg">
@@ -25,15 +65,7 @@ export default function Navbar() {
                         </Typography>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page.title}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                                href={page.link}
-                            >
-                                {page.title}
-                            </Button>
-                        ))}
+                        {nav_links()}
                     </Box>
                 </Toolbar>
             </Container>

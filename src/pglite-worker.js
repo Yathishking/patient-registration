@@ -5,8 +5,7 @@ import { OpfsAhpFS } from '@electric-sql/pglite/opfs-ahp'
 worker({
   async init() {
     return new PGlite({
-        extensions: { live },
-        fs: new OpfsAhpFS('./docsys'),
+        fs: new OpfsAhpFS('docsys'),
     })
   },
 })

@@ -1,7 +1,7 @@
 import { Button, Container, Typography } from "@mui/material";
 
 export default function Home() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user') ?? "") || null;
     const role = localStorage.getItem('role');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
 

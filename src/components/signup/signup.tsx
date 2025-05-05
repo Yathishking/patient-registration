@@ -10,10 +10,10 @@ const SignUp = () => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const data = {
-            firstName: formData.get('firstName'),
-            lastName: formData.get('lastName'),
+            firstName: formData.get('first_name'),
+            lastName: formData.get('last_name'),
             email: formData.get('email'),
-            phoneNumber: formData.get('phoneNumber'),
+            phoneNumber: formData.get('phone_number'),
             password: formData.get('password')
         };
         console.log('Form data:', data);
@@ -43,11 +43,11 @@ const SignUp = () => {
                 <Typography variant="h2">Sign Up</Typography>
                 <form method="post" onSubmit={handleSubmit} className="signup-form">
                     <FormControl>
-                        <TextField name="firstName" label="First Name"
+                        <TextField name="first_name" label="First Name"
                             variant="outlined" required />
                     </FormControl>
                     <FormControl>
-                        <TextField name="lastName" label="Last Name"
+                        <TextField name="last_name" label="Last Name"
                             variant="outlined" required />
                     </FormControl>
                     <FormControl>
@@ -55,7 +55,7 @@ const SignUp = () => {
                             variant="outlined" required />
                     </FormControl>
                     <FormControl>
-                        <TextField name="phoneNumber" label="Phone Number"
+                        <TextField name="phone_number" label="Phone Number"
                             variant="outlined" required />
                     </FormControl>
                     <FormControl>

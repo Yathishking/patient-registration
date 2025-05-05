@@ -1,5 +1,6 @@
 import { usePGlite } from "@electric-sql/pglite-react";
-import { Box, Button, Container, FormControl, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
+import { PatientRecord } from "../../types/PatientRecord";
 
 export default function Login() {
     const db = usePGlite()
@@ -13,7 +14,7 @@ export default function Login() {
         };
         console.log('Form data:', data);
         
-        db.query(`
+        db.query<PatientRecord>(`
             SELECT * FROM users WHERE email = $1 AND password = $2;
             `, [data.email, data.password])
             .then((res) => {
