@@ -4,10 +4,6 @@ export const pages = [
         link: "/"
     },
     {
-        title: 'Sign Up',
-        link: "/signup"
-    },
-    {
         title: 'Login',
         link: "/login"
     },

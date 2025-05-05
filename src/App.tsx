@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SignUp from './components/signup/signup';
+import Register from './components/register/register';
 import Home from './components/home';
 import { PGliteProvider } from "@electric-sql/pglite-react"
 import { useEffect } from 'react';
@@ -31,7 +31,7 @@ function App() {
       last_name TEXT NOT NULL,
       email TEXT NOT NULL UNIQUE,
       phone_number TEXT NOT NULL,
-      password TEXT NOT NULL,
+      password TEXT NULL,
       role TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -56,9 +56,9 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </PGliteProvider>

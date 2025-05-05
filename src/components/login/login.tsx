@@ -43,6 +43,7 @@ export default function Login() {
          flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center', height: '90vh' }}>
             <Typography variant="h3">Login</Typography>
+            <Typography>Use email "admin@docsys.com" and password "admin" to login into dashboard</Typography>
             <form method="post" onSubmit={handleSubmit}>
                 <FormControl>
                     <TextField name="email" label="Email"

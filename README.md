@@ -33,6 +33,6 @@ This project is a **Patient Registration System** designed to streamline the pro
   ```
 2. Open your browser and navigate to:
   ```
-  http://localhost:5713
+  http://localhost:5173
   ```
 
