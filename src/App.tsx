@@ -2,18 +2,25 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUp from './components/signup/signup';
 import Home from './components/home';
-import { PGlite } from "@electric-sql/pglite"
-import { live } from "@electric-sql/pglite/live"
 import { PGliteProvider } from "@electric-sql/pglite-react"
 import { useEffect } from 'react';
 import Login from './components/login/login';
-import { IdbFs } from '@electric-sql/pglite'
 import Dashboard from './components/dashboard/dashboard';
+import { PGliteWorker } from '@electric-sql/pglite/worker';
+import Navbar from './components/nav/navbar';
+import { live } from '@electric-sql/pglite/live';
 
-const db = await PGlite.create({
-  extensions: { live },
-  fs:  new IdbFs("docsys"),
-})
+const db =  await PGliteWorker.create(
+  new Worker(new URL('./pglite-worker.js', import.meta.url), {
+    type: 'module',
+  }),
+  {
+    extensions: {
+      live,
+    },
+  },
+)
+
 
 function App() {
   useEffect(() => {
@@ -46,6 +53,7 @@ function App() {
   return (
     <PGliteProvider db={db}>
       <BrowserRouter>
+      <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
