@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, TextField } from "@mui/material";
+import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import "./signup.css"
 import { usePGlite } from "@electric-sql/pglite-react";
 import { redirect } from "react-router-dom";
@@ -40,7 +40,7 @@ const SignUp = () => {
     return (
         <div>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-                <h1>Sign Up</h1>
+                <Typography variant="h2">Sign Up</Typography>
                 <form method="post" onSubmit={handleSubmit} className="signup-form">
                     <FormControl>
                         <TextField name="firstName" label="First Name"

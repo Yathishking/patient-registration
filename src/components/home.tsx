@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Button, Container, Typography } from "@mui/material";
 
 export default function Home() {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -7,37 +7,35 @@ export default function Home() {
 
     if (user && role && isLoggedIn) {
         return (
-            <div>
-                <h1>Welcome back, {user.firstName}!</h1>
-                <p>You are logged in as a {role}.</p>
-                <p>Patient Detials</p>
-                <p>First Name: {user.firstName}</p>
-                <p>Last Name: {user.lastName}</p>
-                <p>Email: {user.email}</p>
-                <p>Phone Number: {user.phoneNumber}</p>
-                <p>Role: {role}</p>
-                <p>To log out, please click the button below.</p>
-                <button onClick={() => {
+            <Container sx={{ padding: 2 }}>
+                <Typography variant="h3">Welcome back, {user.first_name}!</Typography>
+                <Typography>You are logged in as a {role}.</Typography>
+                <Typography>Patient Detials</Typography>
+                <Typography>First Name: {user.first_name}</Typography>
+                <Typography>Last Name: {user.last_name}</Typography>
+                <Typography>Email: {user.email}</Typography>
+                <Typography>Phone Number: {user.phone_number}</Typography>
+                <Typography>Role: {role}</Typography>
+                <Typography>To log out, please click the button below.</Typography>
+                <Button onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('role');
                     localStorage.removeItem('isLoggedIn');
                     window.location.reload();
                 }
-                }>Log Out</button>
-            </div>
+                }>Log Out</Button>
+            </Container>
         )
     }
     return (
-        <div>
-            <h1>Patient Registration</h1>
-            <h2>Welcome to the Patient Registration System</h2>
-            <p>This system allows you to register new patients and manage their information.</p>
-            <p>To get started, please click on the "Sign Up" button below.</p>
-            <NavLink to='/signup'>Sign Up</NavLink>
-            <p>If you already have an account, please click on the "Log In" button below.</p>
-            <NavLink to='/login'>Login</NavLink>
-            <p>If you are an administrator, please click on the "Admin Login" button below.</p>
-            <NavLink to='/admin-login'>Admin Login</NavLink>
-        </div>
+        <Container>
+            <Typography>Patient Registration</Typography>
+            <Typography>Welcome to the Patient Registration System</Typography>
+            <Typography>This system allows you to register new patients and manage their information.</Typography>
+            <Typography>To get started, please click on the "Sign Up" button below.</Typography>
+            <Button href='/signup'>Sign Up</Button>
+            <Typography>If you already have an account, please click on the "Log In" button below.</Typography>
+            <Button href='/login'>Login</Button>
+        </Container>
     )
 }

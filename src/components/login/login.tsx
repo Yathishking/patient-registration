@@ -1,5 +1,5 @@
 import { usePGlite } from "@electric-sql/pglite-react";
-import { FormControl, TextField } from "@mui/material";
+import { Box, Button, Container, FormControl, TextField, Typography } from "@mui/material";
 
 export default function Login() {
     const db = usePGlite()
@@ -38,8 +38,10 @@ export default function Login() {
 
     return (
 
-        <div>
-            <h1>Login</h1>
+        <Box sx={{ display: 'flex',
+         flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center', height: '90vh' }}>
+            <Typography variant="h3">Login</Typography>
             <form method="post" onSubmit={handleSubmit}>
                 <FormControl>
                     <TextField name="email" label="Email"
@@ -49,8 +51,8 @@ export default function Login() {
                     <TextField name="password" label="Password"
                         variant="outlined" required type="password" />
                 </FormControl>
-                <button type="submit">Login</button>
+                <Button type="submit">Login</Button>
             </form>
-        </div>
+        </Box>
     )
 }
