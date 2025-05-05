@@ -7,10 +7,12 @@ import { live } from "@electric-sql/pglite/live"
 import { PGliteProvider } from "@electric-sql/pglite-react"
 import { useEffect } from 'react';
 import Login from './components/login/login';
-
+import { IdbFs } from '@electric-sql/pglite'
+import Dashboard from './components/dashboard/dashboard';
 
 const db = await PGlite.create({
-  extensions: { live }, 
+  extensions: { live },
+  fs:  new IdbFs("docsys"),
 })
 
 function App() {
@@ -26,9 +28,13 @@ function App() {
       role TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+);  
 
-    `).then(() => {
+      INSERT INTO users (first_name, last_name, email, phone_number, password, role)
+      VALUES ('admin', 'admin', 'admin@docsys.com', '1234567890', 'admin', 'admin')
+      ON CONFLICT (email) DO NOTHING;
+
+`).then(() => {
       console.log('Table created successfully');
     }
     ).catch((error) => {
@@ -44,6 +50,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </PGliteProvider>
