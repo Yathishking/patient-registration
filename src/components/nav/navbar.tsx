@@ -43,7 +43,7 @@ export default function Navbar() {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{ marginBottom: 2 }}>
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>

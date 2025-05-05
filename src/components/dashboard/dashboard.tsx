@@ -4,6 +4,8 @@ import { PatientRecord } from "../../types/PatientRecord";
 import { Box, Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { Repl } from '@electric-sql/pglite-repl'
+import { Route, Routes } from "react-router-dom";
+import Register from "../register/register";
 
 
 
@@ -68,53 +70,58 @@ export default function Dashboard() {
     }, [db])
 
 
-
     return (
-        <Container>
-            <Typography variant="h4">Dashboard</Typography>
-            <hr />
-            <Typography variant="h5">Patient Records</Typography>
-            <Typography variant="h6">List of tables</Typography>
-            <Typography variant="h6">1. users (first_name, last_name, email, phone_number, password, role)</Typography>
-            <hr /><br />
-            <Typography variant="h6">Use the REPL console for SQL query</Typography>
-            <Repl pg={db} /> <br />
-            <Typography variant="h6">Or use the textarea below</Typography>
-            <Typography variant="h6">Example: SELECT * FROM users WHERE role = 'patient';</Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '80vw' }}>
-                <TextareaAutosize value={query}
-                    onChange={(e) => setQuery(e.target.value)} placeholder="Enter SQL..." minRows={4}
-                    style={{ width: '100%', maxWidth: '600px', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                />
-                <Button onClick={runQuery}>Run</Button>
-            </Box>
-            {
-                patientRecords.length > 0 ? (
-                    <Container>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>First Name</TableCell>
-                                    <TableCell>Last Name</TableCell>
-                                    <TableCell>Email</TableCell>
-                                    <TableCell>Phone Number</TableCell>
-                                    <TableCell>Role</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {patientRecords.map((record) => (
-                                    <TableRow key={record.id}>
-                                        <TableCell>{record.first_name}</TableCell>
-                                        <TableCell>{record.last_name}</TableCell>
-                                        <TableCell>{record.email}</TableCell>
-                                        <TableCell>{record.phone_number}</TableCell>
-                                        <TableCell>{record.role}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </Container>) : (<p>No patient records found.</p>)
-            }
-        </Container>
+        <Routes>
+            <Route path="add" element={<Register/>} />
+            <Route path="*" element={ 
+                        <Container>
+                        <Typography variant="h4">Dashboard</Typography>
+                        <hr />
+                        <Box sx={{ display: 'flex',  width: '80vw', padding: 1 }}>
+                            <Typography variant="h5" sx={{flexGrow: 1}}>Patient Records</Typography> 
+                            <Button sx={{display: "block", }} href="/dashboard/add">Add Patient Record</Button>
+                        </Box>
+                        <hr />
+                        <Typography>Use the REPL console for SQL query</Typography>
+                        <Repl pg={db} /> <br />
+                        <Typography>Or use the textarea below</Typography>
+                        <Box sx={{ display: 'flex', width: '80vw' }}>
+                            <TextareaAutosize value={query}
+                                onChange={(e) => setQuery(e.target.value)} placeholder="Enter SQL..." minRows={2}
+                                style={{ width: '100%', maxWidth: '600px', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                            />
+                            <Button onClick={runQuery}>Run</Button>
+                        </Box>
+                        {
+                            patientRecords.length > 0 ? (
+                                <Container>
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>First Name</TableCell>
+                                                <TableCell>Last Name</TableCell>
+                                                <TableCell>Email</TableCell>
+                                                <TableCell>Phone Number</TableCell>
+                                                <TableCell>Role</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {patientRecords.map((record) => (
+                                                <TableRow key={record.id}>
+                                                    <TableCell>{record.first_name}</TableCell>
+                                                    <TableCell>{record.last_name}</TableCell>
+                                                    <TableCell>{record.email}</TableCell>
+                                                    <TableCell>{record.phone_number}</TableCell>
+                                                    <TableCell>{record.role}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Container>) : (<p>No patient records found.</p>)
+                        }
+                    </Container>
+            }/>
+        </Routes>
+
     );
 }

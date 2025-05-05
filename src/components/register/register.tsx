@@ -1,9 +1,8 @@
 import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import "./signup.css"
 import { usePGlite } from "@electric-sql/pglite-react";
-import { redirect } from "react-router-dom";
 
-const SignUp = () => {
+const Register = () => {
     const db = usePGlite()
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -14,24 +13,17 @@ const SignUp = () => {
             lastName: formData.get('last_name'),
             email: formData.get('email'),
             phoneNumber: formData.get('phone_number'),
-            password: formData.get('password')
         };
         console.log('Form data:', data);
 
         db.query(`
-            INSERT INTO users (first_name, last_name, email, phone_number, password, role)
-            VALUES ($1, $2, $3, $4, $5, $6);
+            INSERT INTO users (first_name, last_name, email, phone_number, role)
+            VALUES ($1, $2, $3, $4, $5);
             `, [data.firstName, data.lastName,
-        data.email, data.phoneNumber,
-        data.password, 'patient'])
+        data.email, data.phoneNumber,'patient'])
             .then((res) => {
-                console.log('User registered successfully', res);
-                // Redirect to home page or show success message
-                redirect('/');
-                localStorage.setItem('user', JSON.stringify(data));
-                localStorage.setItem('role', 'patient');
-                localStorage.setItem('isLoggedIn', 'true');
-                
+                console.log('Patient registered successfully', res);
+                window.location.href = '/dashboard';
             }).catch((error) => {
                 console.error('registering user', error);
             });
@@ -40,7 +32,7 @@ const SignUp = () => {
     return (
         <div>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-                <Typography variant="h2">Sign Up</Typography>
+                <Typography variant="h2">Register</Typography>
                 <form method="post" onSubmit={handleSubmit} className="signup-form">
                     <FormControl>
                         <TextField name="first_name" label="First Name"
@@ -58,15 +50,11 @@ const SignUp = () => {
                         <TextField name="phone_number" label="Phone Number"
                             variant="outlined" required />
                     </FormControl>
-                    <FormControl>
-                        <TextField name="password" label="Password"
-                            variant="outlined" required type="password" />
-                    </FormControl>
-                    <Button type="submit">Sign Up</Button>
+                    <Button type="submit">Add Patient details</Button>
                 </form>
             </Box>
         </div>
     )
 }
 
-export default SignUp;
+export default Register;
