@@ -35,4 +35,7 @@ This project is a **Patient Registration System** designed to streamline the pro
   ```
   http://localhost:5173
   ```
-
+## Challenges faced during development:
+1. Had to refactor `signup` component to `register` to maintain consistency.
+2. Faced problem with PGLite Worker not able to create local db due to directory name error.
+3. fixed problem with PGLite not working in initial commit due to typescript errors (fixed by reinstalling Node).
