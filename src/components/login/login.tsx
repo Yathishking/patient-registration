@@ -17,11 +17,12 @@ export default function Login() {
             SELECT * FROM users WHERE email = $1 AND password = $2;
             `, [data.email, data.password])
             .then((res) => {
-                if (res.length > 0) {
+                console.log('Query result:', res);
+                if (res.rows.length > 0) {
                     console.log('User logged in successfully', res);
                     // Store user data in local storage
-                    localStorage.setItem('user', JSON.stringify(res[0]));
-                    localStorage.setItem('role', res[0].role);
+                    localStorage.setItem('user', JSON.stringify(res.rows[0]));
+                    localStorage.setItem('role', res.rows[0].role);
                     localStorage.setItem('isLoggedIn', 'true');
                     // Redirect to home page or show success message
                     window.location.href = '/';
